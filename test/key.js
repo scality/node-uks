@@ -38,10 +38,11 @@ describe('key', function() {
 
   });
 
-  describe('.value.toString(16)', function() {
+  // note: cannot just do a .value.toString(16) because of 32-bit constraints in JavaScript
+  describe('#toHex', function() {
     it('should have a length less than 40', function() {
       var k = new key('1234');
-      expect(k.value.toString(16)).to.have.length.below(40);
+      expect(k.toHex()).to.have.length.below(40);
     });
 
   });
