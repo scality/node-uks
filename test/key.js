@@ -4,7 +4,7 @@ var expect = require('chai').expect,
 describe('key', function() {
 
   describe('constructor', function() {
-    it('should allow for a string of hex characters', function() {
+    it('should allow for a string of hex digits', function() {
       new key('ABCD');
       new key('1234');
       new key('A1B2');
@@ -53,32 +53,37 @@ describe('key', function() {
   describe('.class', function() {
     it('should initially be zero when unspecified', function() {
       var k = new key('ABCD');
-      expect(k.class).to.be(0);
+      expect(k.class).to.equal(0);
     });
 
-    it('should be taken from the second-to-last character of a 40-char hex key', function() {
+    it('should be taken from the second-to-last digit of a 40-digit hex key', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D20');
-      expect(k.class).to.be(2);
+      expect(k.class).to.equal(2);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D00');
-      expect(k.class).to.be(0);
+      expect(k.class).to.equal(0);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D30');
-      expect(k.class).to.be(3);
+      expect(k.class).to.equal(3);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50DA0');
-      expect(k.class.toString(16)).to.be('A');
+      expect(k.class.toString(16)).to.equal('a');
     });
 
   });
 
   describe('.replica_number', function() {
-    it('should be taken from the last character of the 40-char hex key', function() {
+    it('should be taken from the last digit of the 40-digit hex key when class is not 7', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D20');
-      expect(k.replica_number).to.be(0);
+      expect(k.replica_number).to.equal(0);
+    });
 
-      k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D21');
-      expect(k.replica_number).to.be(1);
+    it('should perform dark magic when class is 7', function() {
+      k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D70');
+      expect(k.replica_number).to.equal(208); // exact number Python code gives
+
+      k = new key('C93AC3EC755EF83FAC62D900000000512430C070');
+      expect(k.replica_number).to.equal(0); // exact number Python code gives
     });
 
   });
@@ -86,12 +91,12 @@ describe('key', function() {
   describe('.next', function() {
     it('should be a reference to the next replica', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D20');
-      expect(k.next.replica_number).to.be(1);
+      expect(k.next.replica_number).to.equal(1);
     });
 
     it('should be null if there is not another replica', function() {
       var k = new key('014');
-      expect(k.next).to.be(null);
+      expect(k.next).to.equal(null);
     });
 
   });
@@ -99,12 +104,12 @@ describe('key', function() {
   describe('.prev', function() {
     it('should be a reference to the previous replica', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D21');
-      expect(k.prev.replica_number).to.be(0);
+      expect(k.prev.replica_number).to.equal(0);
     });
 
     it('should be null if there is not a previous replica', function() {
       var k = new key('014');
-      expect(k.next).to.be(null);
+      expect(k.next).to.equal(null);
     });
 
   });
@@ -124,30 +129,30 @@ describe('key', function() {
     it('should have a length of class+1 when class < 6 and replica is 0', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D00');
       expect(k.replicas).to.have.length(1);
-      expect(k.replicas.length).to.be(k.class + 1);
+      expect(k.replicas.length).to.equal(k.class + 1);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D10');
       expect(k.replicas).to.have.length(2);
-      expect(k.replicas.length).to.be(k.class + 1);
+      expect(k.replicas.length).to.equal(k.class + 1);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D20');
       expect(k.replicas).to.have.length(3);
-      expect(k.replicas.length).to.be(k.class + 1);
+      expect(k.replicas.length).to.equal(k.class + 1);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D30');
       expect(k.replicas).to.have.length(4);
-      expect(k.replicas.length).to.be(k.class + 1);
+      expect(k.replicas.length).to.equal(k.class + 1);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D40');
       expect(k.replicas).to.have.length(5);
-      expect(k.replicas.length).to.be(k.class + 1);
+      expect(k.replicas.length).to.equal(k.class + 1);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D50');
       expect(k.replicas).to.have.length(5);
-      expect(k.replicas.length).to.be(k.class + 1);
+      expect(k.replicas.length).to.equal(k.class + 1);
     });
 
-    // TODO: Python test handles last two chars '12' as having 3 replicas,
+    // TODO: Python test handles last two digits '12' as having 3 replicas,
     // but seems counter-intuitive and is not mentioned in UKS PDF.
     // Should this even be allowed, as 10 and 11 only give two replicas?
 
