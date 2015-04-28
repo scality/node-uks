@@ -57,9 +57,12 @@ describe('key', function() {
   });
 
   describe('.class', function() {
-    it('should initially be zero when unspecified', function() {
+    it('should be undefined when class arithmetic returns an invalid class', function() {
       var k = new key('ABCD');
-      expect(k.class).to.equal(0);
+      expect(k.class).to.be.undefined;
+
+      k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50DA0');
+      expect(k.class).to.be.undefined;
     });
 
     it('should be taken from the second-to-last digit of a 40-digit hex key', function() {
@@ -71,9 +74,6 @@ describe('key', function() {
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D30');
       expect(k.class).to.equal(3);
-
-      k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50DA0');
-      expect(k.class.toString(16)).to.equal('a');
     });
 
   });
