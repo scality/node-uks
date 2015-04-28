@@ -46,6 +46,12 @@ describe('key', function() {
     it('should have a length equal than 40', function() {
       var k = new key('1234');
       expect(k.toHexPadded()).to.have.length(40);
+
+      k = new key('12345');
+      expect(k.toHexPadded()).to.have.length(40);
+
+      k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D20');
+      expect(k.toHexPadded()).to.have.length(40);
     });
 
   });
