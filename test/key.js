@@ -161,9 +161,9 @@ describe('key', function() {
 
   describe('#isBetween(key1, key2)', function() {
     it('should return true when the key is between order-sensitive keys', function() {
-      var k1 = new key(0);
-      var k2 = new key(1);
-      var k3 = new key(2);
+      var k0 = new key(0);
+      var k1 = new key(1);
+      var k2 = new key(2);
 
       expect(k1.isBetween(k0, k2)).to.be.true;
       expect(k0.isBetween(k2, k1)).to.be.true;
@@ -172,9 +172,9 @@ describe('key', function() {
     });
 
     it('should return falsee when the key is not between order-sensitive keys', function() {
-      var k1 = new key(0);
-      var k2 = new key(1);
-      var k3 = new key(2);
+      var k0 = new key(0);
+      var k1 = new key(1);
+      var k2 = new key(2);
 
       expect(k0.isBetween(k1, k2)).to.be.false;
     });
