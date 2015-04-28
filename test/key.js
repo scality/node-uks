@@ -26,14 +26,9 @@ describe('key', function() {
       expect(function(){new key()}).to.throw(Error);
     });
 
-    it('should throw an error if hex value is greater than 2^160', function() {
-      var v = Math.pow(2,160)+1;
+    it('should throw an error if hex value is too long', function() {
+      v = '10000000000000000000000000000000000000000'; // 2^160
       expect(function(){new key(v)}).to.throw(Error);
-    });
-
-    it('should be fine if hex value equals 2^160', function() {
-      v = Math.pow(2,160);
-      new key(v);
     });
 
   });
