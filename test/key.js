@@ -179,10 +179,19 @@ describe('key', function() {
       expect(k1.isBetween(k0, k2)).to.be.true;
       expect(k0.isBetween(k2, k1)).to.be.true;
       expect(k0.isBetween(k2, k2)).to.be.true;
-      expect(k2.isBetween(k2, k2)).to.be.true;
     });
 
-    it('should return falsee when the key is not between order-sensitive keys', function() {
+    it('should return true when the two given keys are identical', function() {
+      var k0 = new key(0);
+      var k1 = new key(1);
+      var k2 = new key(2);
+      expect(k0.isBetween(k2, k2)).to.be.true;
+      expect(k1.isBetween(k2, k2)).to.be.true;
+      expect(k2.isBetween(k2, k2)).to.be.true;
+      expect(k2.isBetween(k1, k1)).to.be.true;
+    });
+
+    it('should return false when the key is not between order-sensitive keys', function() {
       var k0 = new key(0);
       var k1 = new key(1);
       var k2 = new key(2);
