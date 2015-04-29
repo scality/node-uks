@@ -297,4 +297,14 @@ describe('keyutils', function() {
     });
 
   });
+
+  describe('getRainM', function() {
+    it('should return expected values', function() {
+      var k = new Key("b5ee17ad7b2bbb71a0acb8829403866370b50d");
+      var nextKey = keyutils.getRainM(k);
+      var expected = "37";
+      expect(nextKey.toString(16)).to.equal(expected);
+    });
+
+  });
 });
