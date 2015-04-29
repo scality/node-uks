@@ -222,7 +222,7 @@ describe('keyutils', function() {
     });
 
     it('should allow other keys', function() {
-      expect(keyutils.isValidKeyType(new key(1234))).to.be.ok;
+      expect(keyutils.isValidKeyType(new Key(1234))).to.be.ok;
     });
 
     it('should allow bignums', function() {
