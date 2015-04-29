@@ -275,6 +275,7 @@ describe('keyutils', function() {
       var expected = "f5ee17ad7b2bbb71a0acb8829403866370b50d";
       expect(nextKey.toString(16)).to.equal(expected);
     });
+
   });
 
   describe('getNextRainReplicaInt', function() {
@@ -284,5 +285,16 @@ describe('keyutils', function() {
       var expected = "b5ee15ad7b2bbb71a0acb8829403866370b50d";
       expect(nextKey.toString(16)).to.equal(expected);
     });
+
+  });
+
+  describe('getRainK', function() {
+    it('should return expected values', function() {
+      var k = new Key("b5ee17ad7b2bbb71a0acb8829403866370b50d");
+      var nextKey = keyutils.getRainK(k);
+      var expected = "18";
+      expect(nextKey.toString(16)).to.equal(expected);
+    });
+
   });
 });
