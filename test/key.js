@@ -245,12 +245,12 @@ describe('keyutils', function() {
       // expected results pulled from Python code
       var key = new Key("B5EE17AD7B2BBB71A0ACB8829403866370B50D12");
       var rep = keyutils.getNextReplica(key, 0);
-      var expected = "35EE17AD7B2BBB71A0ACB8829403866370B50D11";
+      var expected = "35ee17ad7b2bbb71a0acb8829403866370b50d11";
       expect(rep.toHexPadded()).to.equal(expected);
 
       key = new Key("C93AC3EC755EF83FAC62D900000000512430C070");
       rep = keyutils.getNextReplica(key, 0);
-      expected = "DE901941CAB44D9501B82E55555555A62430C071";
+      expected = "de901941cab44d9501b82e55555555a62430c071";
       expect(rep.toHexPadded()).to.equal(expected);
     });
 
@@ -273,6 +273,15 @@ describe('keyutils', function() {
       var k = new Key("b5ee17ad7b2bbb71a0acb8829403866370b50d");
       var nextKey = keyutils.getNextReplicaInt(k, 3, 3, 0);
       var expected = "f5ee17ad7b2bbb71a0acb8829403866370b50d";
+      expect(nextKey.toString(16)).to.equal(expected);
+    });
+  });
+
+  describe('getNextRainReplicaInt', function() {
+    it('should return expected values', function() {
+      var k = new Key("b5ee17ad7b2bbb71a0acb8829403866370b50d");
+      var nextKey = keyutils.getNextRainReplicaInt(k, 3, 3, 0);
+      var expected = "b5ee15ad7b2bbb71a0acb8829403866370b50d";
       expect(nextKey.toString(16)).to.equal(expected);
     });
   });
