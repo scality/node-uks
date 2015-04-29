@@ -274,6 +274,11 @@ describe('keyutils', function() {
       var nextKey = keyutils.getNextReplicaInt(k, 3, 3, 0);
       var expected = "f5ee17ad7b2bbb71a0acb8829403866370b50d";
       expect(nextKey.toString(16)).to.equal(expected);
+
+      k = new Key("c93ac3ec755ef83fac62d90000000051")
+      nextKey = keyutils.getNextReplicaInt(k, 12, 0, 1);
+      expected = '13b13bdcebff00269a0bf0e7768a3b13b13b64';
+      expect(nextKey.toString(16)).to.equal(expected);
     });
 
   });
