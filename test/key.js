@@ -236,10 +236,6 @@ describe('keyutils', function() {
 
   });
 
-  describe('#getNextReplicaInt(entropyKey, schema, replica, nextReplica)', function() {
-
-  });
-
   describe('#getNextReplica(key, cls1)', function() {
     it('should work when cls1 is 0', function() {
       // expected results pulled from Python code
@@ -258,7 +254,7 @@ describe('keyutils', function() {
       // expected results pulled from Python code
       var key = new Key("B5EE17AD7B2BBB71A0ACB8829403866370B50D12");
       var rep = keyutils.getNextReplica(key, 0);
-      var expected = "f5ee17ad7b2bbb71a0acb8829403866370b50d10";
+      var expected = "35ee17ad7b2bbb71a0acb8829403866370b50d11";
       expect(rep.toHexPadded()).to.equal(expected);
 
       key = new Key("C93AC3EC755EF83FAC62D900000000512430C070");
@@ -278,6 +274,11 @@ describe('keyutils', function() {
       k = new Key("c93ac3ec755ef83fac62d90000000051")
       nextKey = keyutils.getNextReplicaInt(k, 12, 0, 1);
       expected = '13b13bdcebff00269a0bf0e7768a3b13b13b64';
+      expect(nextKey.toString(16)).to.equal(expected);
+
+      k = new Key("B5EE17AD7B2BBB71A0ACB8829403866370B50D12")
+      nextKey = keyutils.getNextReplicaInt(k, 1, 2, 1);
+      expected = 'b46e17ad7b2bbb71a0acb8829403866370b50d12';
       expect(nextKey.toString(16)).to.equal(expected);
     });
 
