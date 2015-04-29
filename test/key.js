@@ -258,12 +258,12 @@ describe('keyutils', function() {
       // expected results pulled from Python code
       var key = new Key("B5EE17AD7B2BBB71A0ACB8829403866370B50D12");
       var rep = keyutils.getNextReplica(key, 0);
-      var expected = "F5EE17AD7B2BBB71A0ACB8829403866370B50D10";
+      var expected = "f5ee17ad7b2bbb71a0acb8829403866370b50d10";
       expect(rep.toHexPadded()).to.equal(expected);
 
       key = new Key("C93AC3EC755EF83FAC62D900000000512430C070");
       rep = keyutils.getNextReplica(key, 1);
-      expected = "DE901941CAB44D9501B82E55555555A62430C071";
+      expected = "de901941cab44d9501b82e55555555a62430c071";
       expect(rep.toHexPadded()).to.equal(expected);
     });
   });
