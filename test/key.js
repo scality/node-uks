@@ -1,7 +1,7 @@
-var expect = require('chai').expect,
-    key    = require('../index').key;
+var expect   = require('chai').expect;
 
-describe('key', function() {
+describe('Key', function() {
+  var key = require('../index').Key;
 
   describe('constructor', function() {
     it('should allow for a string of hex digits', function() {
@@ -120,42 +120,41 @@ describe('key', function() {
 
   });
 
-  describe('.replicas', function() {
+  describe('.getReplicas(class1translate)', function() {
     it('should be an array', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D21');
-      expect(k.replicas).to.be.an.instanceof(Array);
+      expect(k.getReplicas(false)).to.be.an.instanceof(Array);
     });
 
     it('should contain the accessing key', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D21');
-      expect(k.replicas).to.contain(k);
+      expect(k.getReplicas()).to.contain(k);
     });
 
     // there are few enough of these that I am going to test them all
     it('should have a length of class+1 when class < 6 and replica is 0', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D00');
-      expect(k.replicas).to.have.length(1);
-      expect(k.replicas.length).to.equal(k.class + 1);
+      expect(k.getReplicas()).to.have.length(k.class + 1);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D10');
-      expect(k.replicas).to.have.length(2);
-      expect(k.replicas.length).to.equal(k.class + 1);
+      expect(k.getReplicas()).to.have.length(2);
+      expect(k.getReplicas().length).to.equal(k.class + 1);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D20');
-      expect(k.replicas).to.have.length(3);
-      expect(k.replicas.length).to.equal(k.class + 1);
+      expect(k.getReplicas()).to.have.length(3);
+      expect(k.getReplicas().length).to.equal(k.class + 1);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D30');
-      expect(k.replicas).to.have.length(4);
-      expect(k.replicas.length).to.equal(k.class + 1);
+      expect(k.getReplicas()).to.have.length(4);
+      expect(k.getReplicas().length).to.equal(k.class + 1);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D40');
-      expect(k.replicas).to.have.length(5);
-      expect(k.replicas.length).to.equal(k.class + 1);
+      expect(k.getReplicas()).to.have.length(5);
+      expect(k.getReplicas().length).to.equal(k.class + 1);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D50');
-      expect(k.replicas).to.have.length(5);
-      expect(k.replicas.length).to.equal(k.class + 1);
+      expect(k.getReplicas()).to.have.length(5);
+      expect(k.getReplicas().length).to.equal(k.class + 1);
     });
 
     // TODO: Python test handles last two digits '12' as having 3 replicas,
@@ -164,8 +163,8 @@ describe('key', function() {
 
     it('should contain both .prev and .next items when .prev and .next exist', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D21');
-      expect(k.replicas).to.contain(k.prev);
-      expect(k.replicas).to.contain(k.next);
+      expect(k.getReplicas()).to.contain(k.prev);
+      expect(k.getReplicas()).to.contain(k.next);
     });
 
   });
@@ -206,4 +205,62 @@ describe('key', function() {
 
   });
 
+});
+
+describe('keyutils', function() {
+  var keyutils = require('../index').keyutils,
+      bignum = require('bignum'),
+      key = require('../index').Key;
+
+  describe('#isValidKeyType', function() {
+    it('should allow strings', function() {
+      expect(keyutils.isValidKeyType('abcd')).to.be.ok;
+    });
+
+    it('should allow numbers', function() {
+      expect(keyutils.isValidKeyType(1234)).to.be.ok;
+    });
+
+    it('should allow other keys', function() {
+      expect(keyutils.isValidKeyType(new key(1234))).to.be.ok;
+    });
+
+    it('should allow bignums', function() {
+      expect(keyutils.isValidKeyType(bignum(1234))).to.be.ok;
+    });
+
+    it('should not allow arbitrary objects', function() {
+      expect(keyutils.isValidKeyType({})).to.not.be.ok;
+      expect(keyutils.isValidKeyType([])).to.not.be.ok;
+    });
+
+  });
+
+  describe('#getNextReplica(key, cls1)', function() {
+    it('should work when cls1 is 0', function() {
+      // expected results pulled from Python code
+      var key = new Key("B5EE17AD7B2BBB71A0ACB8829403866370B50D12");
+      var rep = keyutils.getNextReplica(key, 0);
+      var expected = "35EE17AD7B2BBB71A0ACB8829403866370B50D11";
+      expect(rep.value.toString(16)).to.equal(expected);
+
+      key = new Key("C93AC3EC755EF83FAC62D900000000512430C070");
+      rep = keyutils.getNextReplica(key, 0);
+      expected = "DE901941CAB44D9501B82E55555555A62430C071";
+      expect(rep.value.toString(16)).to.equal(expected);
+    });
+
+    it('should work when cls1 is 1', function() {
+      // expected results pulled from Python code
+      var key = new Key("B5EE17AD7B2BBB71A0ACB8829403866370B50D12");
+      var rep = keyutils.getNextReplica(key, 0);
+      var expected = "F5EE17AD7B2BBB71A0ACB8829403866370B50D10";
+      expect(rep.value.toString(16)).to.equal(expected);
+
+      key = new Key("C93AC3EC755EF83FAC62D900000000512430C070");
+      rep = keyutils.getNextReplica(key, 1);
+      expected = "DE901941CAB44D9501B82E55555555A62430C071";
+      expect(rep.value.toString(16)).to.equal(expected);
+    });
+  });
 });
