@@ -113,7 +113,7 @@ describe('Key', function() {
     it('should be an appropriate value', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D21');
       var expected = '0b436d02d08110c6f6020dd7e958dbb8c60a6222';
-      expect(k.prev.toHexPadded()).to.equal(expected);
+      expect(k.next.toHexPadded()).to.equal(expected);
     });
 
   });
