@@ -107,7 +107,13 @@ describe('Key', function() {
 
     it('should have a reference to prev that has the same value as the key', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D20');
-      expect(k.next.prev.toHex()).to.equal(k.toHex());
+      expect(k.next.prev.toHexPadded()).to.equal(k.toHex());
+    });
+
+    it('should be an appropriate value', function() {
+      var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D21');
+      var expected = '0b436d02d08110c6f6020dd7e958dbb8c60a6222';
+      expect(k.prev.toHexPadded()).to.equal(expected);
     });
 
   });
@@ -126,6 +132,12 @@ describe('Key', function() {
     it('should have a reference to next that has the same value as the key', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D21');
       expect(k.prev.next.toHex()).to.equal(k.toHex());
+    });
+
+    it('should be an appropriate value', function() {
+      var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D21');
+      var expected = '6098c25825d6661c4b57632d3eae310e1b5fb820';
+      expect(k.prev.toHex()).to.equal(expected);
     });
 
   });
