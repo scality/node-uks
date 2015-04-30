@@ -115,7 +115,7 @@ describe('Key', function() {
 
     it('should be null if there is not a previous replica', function() {
       var k = new key('014');
-      expect(k.next).to.equal(null);
+      expect(k.prev).to.equal(null);
     });
 
   });
@@ -158,8 +158,8 @@ describe('Key', function() {
 
     it('should contain both .prev and .next items when .prev and .next exist', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D21');
-      expect(k.getReplicas()).to.contain(k.prev);
-      expect(k.getReplicas()).to.contain(k.next);
+      expect(k.getReplicasAsHexValues()).to.contain(k.prev.toHex());
+      expect(k.getReplicasAsHexValues()).to.contain(k.next.toHex());
     });
 
   });
