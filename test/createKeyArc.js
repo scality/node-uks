@@ -1,10 +1,29 @@
 var expect       = require('chai').expect,
-    createKeyArc = require('../index').createKeyArc;
+    createKeyArc = require('../index').createKeyArc,
+    Key          = require('../index').Key;
 
 describe('createKeyArc(value, options)', function() {
-  it('should return a key arc when appropriate values are passed', function() {
-    expect(createKeyArc('ABC')).to.be.an('object');
-    expect(createKeyArc('0')).to.be.an('object');
+  it('should return a key when appropriate values are passed', function() {
+    var arc = createKeyArc('ABC');
+    var expected = '0000000000000000000abc00000000c02430c070';
+    expect(arc).to.be.an.instanceof(Key);
+    expect(arc.toHexPadded()).to.equal(expected);
+
+    arc = createKeyArc('0')
+    expected = '000000000000000000000000000000c02430c070';
+    expect(arc).to.be.an.instanceof(Key);
+    expect(arc.toHexPadded()).to.equal(expected);
+
+    arc = createKeyArc('124', {
+      version: 0,
+      k: 3,
+      m: 3,
+      schema: 6,
+      replica: 1
+    });
+    expected = '000000000000000000012400000000c00c306071';
+    expect(arc).to.be.an.instanceof(Key);
+    expect(arc.toHexPadded()).to.equal(expected);
   });
 
   it('should throw an error for values less than 0', function() {

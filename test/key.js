@@ -10,6 +10,11 @@ describe('Key', function() {
       new key('A1B2');
     });
 
+    it('should properly position values', function() {
+      var k1 = new key('ABC');
+      expect(k1.value.toNumber()).to.equal(0xABC);
+    });
+
     it('should allow for an integer', function() {
       new key(1234);
     });
@@ -52,6 +57,12 @@ describe('Key', function() {
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D20');
       expect(k.toHexPadded()).to.have.length(40);
+    });
+
+    it('should properly position values when key is small', function() {
+      var k1 = new key('ABC');
+      expected = '0000000000000000000000000000000000000abc';
+      expect(k1.toHexPadded()).to.equal(expected);
     });
 
   });
