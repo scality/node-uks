@@ -105,6 +105,11 @@ describe('Key', function() {
       expect(k.next).to.equal(null);
     });
 
+    it('should have a reference to prev that has the same value as the key', function() {
+      var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D20');
+      expect(k.next.prev.toHex()).to.equal(k.toHex());
+    });
+
   });
 
   describe('.prev', function() {
@@ -116,6 +121,11 @@ describe('Key', function() {
     it('should be null if there is not a previous replica', function() {
       var k = new key('014');
       expect(k.prev).to.equal(null);
+    });
+
+    it('should have a reference to next that has the same value as the key', function() {
+      var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D21');
+      expect(k.prev.next.toHex()).to.equal(k.toHex());
     });
 
   });
