@@ -120,41 +120,36 @@ describe('Key', function() {
 
   });
 
-  describe('.getReplicas(class1translate)', function() {
+  describe('.getReplicas(includeSelf, class1translate)', function() {
     it('should be an array', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D21');
-      expect(k.getReplicas(false)).to.be.an.instanceof(Array);
+      expect(k.getReplicas(false, false)).to.be.an.instanceof(Array);
     });
 
-    it('should contain the accessing key', function() {
+    it('should contain the accessing key when includeSelf is true', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D21');
-      expect(k.getReplicas()).to.contain(k);
+      expect(k.getReplicas(true)).to.contain(k);
     });
 
     // there are few enough of these that I am going to test them all
-    it('should have a length of class+1 when class < 6 and replica is 0', function() {
+    it('should have a length of class+1 when class < 6, replica is 0, and includeSelf is true', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D00');
-      expect(k.getReplicas()).to.have.length(k.class + 1);
+      expect(k.getReplicas(true)).to.have.length(k.class + 1);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D10');
-      expect(k.getReplicas()).to.have.length(2);
-      expect(k.getReplicas().length).to.equal(k.class + 1);
+      expect(k.getReplicas(true).length).to.equal(k.class + 1);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D20');
-      expect(k.getReplicas()).to.have.length(3);
-      expect(k.getReplicas().length).to.equal(k.class + 1);
+      expect(k.getReplicas(true).length).to.equal(k.class + 1);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D30');
-      expect(k.getReplicas()).to.have.length(4);
-      expect(k.getReplicas().length).to.equal(k.class + 1);
+      expect(k.getReplicas(true).length).to.equal(k.class + 1);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D40');
-      expect(k.getReplicas()).to.have.length(5);
-      expect(k.getReplicas().length).to.equal(k.class + 1);
+      expect(k.getReplicas(true).length).to.equal(k.class + 1);
 
       k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D50');
-      expect(k.getReplicas()).to.have.length(5);
-      expect(k.getReplicas().length).to.equal(k.class + 1);
+      expect(k.getReplicas(true).length).to.equal(k.class + 1);
     });
 
     // TODO: Python test handles last two digits '12' as having 3 replicas,
