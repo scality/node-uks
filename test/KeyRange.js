@@ -1,6 +1,8 @@
 var KeyRange = require('../index').KeyRange,
     Key      = require('../index').Key;
 
+var expect   = require('chai').expect;
+
 describe('KeyRange', function() {
   describe('constructor', function() {
     it('should allow integers or Keys as parameters', function() {
@@ -47,7 +49,7 @@ describe('KeyRange', function() {
       expect(results[0]).to.be.an.instanceof(KeyRange);
     });
 
-    function getoverlap(k1, k2, k3, k4):
+    function getoverlap(k1, k2, k3, k4){
       return new KeyRange(k1, k2).getRangeOverlap(new KeyRange(k3, k4))
     }
 
