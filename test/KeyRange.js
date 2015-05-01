@@ -112,9 +112,17 @@ describe('KeyRange', function() {
         kr = new KeyRange(2, 10);
         expect(ol[0].eq(kr)).to.be.true;
 
-        // TODO
-        //getoverlap(1, 10, 9, 2) == [KeyRange(1, 2), KeyRange(9, 10)]
-        //getoverlap(9, 2, 1, 10) == [KeyRange(1, 2), KeyRange(9, 10)]
+        ol = getoverlap(1, 10, 9, 2);
+        var kr1 = new KeyRange(1, 2);
+        var kr2 = new KeyRange(9, 10);
+        expect(ol[0].eq(kr1)).to.be.true;
+        expect(ol[1].eq(kr2)).to.be.true;
+
+        ol = getoverlap(9, 2, 1, 10);
+        var kr1 = new KeyRange(9, 10);
+        var kr2 = new KeyRange(1, 2);
+        expect(ol[0].eq(kr1)).to.be.true;
+        expect(ol[1].eq(kr2)).to.be.true;
     });
 
   });
