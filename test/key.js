@@ -342,3 +342,16 @@ describe('keyutils', function() {
 
   });
 });
+
+describe('createRandomKey(class)', function() {
+  var createRandomKey = require('../index').createRandomKey;
+  var Key = require('../index').Key;
+
+  it('should return an object that is an instance of Key', function() {
+    expect(createRandomKey('01')).to.be.an.instanceof(Key);
+    expect(createRandomKey('02')).to.be.an.instanceof(Key);
+    expect(createRandomKey('03')).to.be.an.instanceof(Key);
+    expect(createRandomKey('04')).to.be.an.instanceof(Key);
+    expect(createRandomKey()).to.be.an.instanceof(Key);
+  });
+});
