@@ -36,6 +36,17 @@ describe('keyutils', function() {
     });
   });
 
+  describe('uksGenRaw', function() {
+    it('should return a 40-character key', function() {
+      expect(keyutils.uksGenRaw('ABC', 3, 12, 15, 2, 1)).to.have.length(40);
+    });
+  });
+  describe('uksGen', function() {
+    it('should return a 40-character key', function() {
+      expect(keyutils.uksGenRaw(3, 12, 15, 2, 1)).to.have.length(40);
+    });
+  });
+
   describe('serializeMd', function() {
     it('should return an array', function() {
       expect(keyutils.serializeMd()).to.be.an.instanceof(Array);
