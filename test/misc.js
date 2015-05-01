@@ -21,6 +21,18 @@ describe('keyutils', function() {
       expect(keyutils.pack754(0.4, 12, 11).toString()).to.equal('1021');
       expect(keyutils.pack754(24, 53, 11).toString()).to.equal('2259496395079680');
     });
+  });
 
+  describe('unpack754', function() {
+    it('should return 1 when i is 0', function() {
+      expect(keyutils.unpack754(0, 1, 1)).to.equal(0);
+    });
+
+    it('should return expected values', function() {
+      expect(keyutils.unpack754(2,5,4).toString()).to.equal('0.03125');
+      expect(keyutils.unpack754(-2, 3, 2).toString()).to.equal('-2');
+      expect(keyutils.unpack754(2, 10, 4).toString()).to.equal('0.00830078125');
+      expect(keyutils.unpack754(-1, 4, 1).toString()).to.equal('-3.5');
+    });
   });
 });
