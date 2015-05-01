@@ -35,4 +35,21 @@ describe('keyutils', function() {
       expect(keyutils.unpack754(-1, 4, 1).toString()).to.equal('-3.5');
     });
   });
+
+  describe('serializeMd', function() {
+    it('should return an array', function() {
+      expect(keyutils.serializeMd()).to.be.an.instanceof(Array);
+    });
+
+    it('should return default values when nothing passed', function() {
+      var expectedJSON = '"\\u0000\\u0000\\u0000\\u0000\\u0005mdver\\u0000\\u0000\\u0000\\u0004\\u0000\\u0000\\u0000\\u0004\\u0000\\u0000\\u0000\\u0000\\u0006mflags\\u0000\\u0000\\u0000\\u0004\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0005atime\\u0000\\u0000\\u0000\\b\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0005mtime\\u0000\\u0000\\u0000\\b\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0005ctime\\u0000\\u0000\\u0000\\b\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0003crf\\u0000\\u0000\\u0000\\u0004\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0007version\\u0000\\u0000\\u0000\\u0004\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u000bdataversion\\u0000\\u0000\\u0000\\u0004\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0005crc32\\u0000\\u0000\\u0000\\u0004\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0004size\\u0000\\u0000\\u0000\\u0004\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\tarchidlen\\u0000\\u0000\\u0000\\u0004\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0006archid\\u0000\\u0000\\u0000\\u0014\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000\\u000barchversion\\u0000\\u0000\\u0000\\u0004\\u0000\\u0000\\u0000\\u0000"';
+      var result = keyutils.serializeMd();
+      var str = '';
+      result.forEach(function(a) {
+        str += String.fromCharCode(a);
+      });
+      var JSONresult = JSON.stringify(str);
+      expect(JSONresult).to.equal(expectedJSON);
+    });
+  });
 });
