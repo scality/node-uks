@@ -27,7 +27,7 @@ describe('KeyRange', function() {
       expect(new KeyRange(2,10).eq(new KeyRange(2,10))).to.be.true;
     });
 
-    it('should return true if the ranges are identical', function() {
+    it('should return false if the ranges are identical', function() {
       expect(new KeyRange(1,8).eq(new KeyRange(5,8))).to.be.false;
       expect(new KeyRange(5,20).eq(new KeyRange(8,18))).to.be.false;
       expect(new KeyRange(2,10).eq(new KeyRange(1,15))).to.be.false;
@@ -38,7 +38,7 @@ describe('KeyRange', function() {
   describe('#getRangeOverlap(KeyRange)', function() {
     it('should throw an error if something besides a KeyRange is given', function() {
       var kr = new KeyRange(0, 1);
-      expect(function(){kr.getRangeOverlap('hello')}).to.throw.an.Error;
+      expect(function(){kr.getRangeOverlap('hello')}).to.throw(Error);
     });
 
     it('should return an array of KeyRanges', function() {
