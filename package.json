@@ -1,7 +1,7 @@
 {
   "name": "node-uks",
   "version": "1.0.0",
-  "description": "",
+  "description": "UKS, universal key space, manipulation tools",
   "main": "index.js",
   "scripts": {
     "test": "`npm bin`/mocha test"
