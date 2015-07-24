@@ -43,8 +43,8 @@ describe('CoS', function() {
       it('should return a key with the correct value', function() {
         var k = new Key('B5EE17AD7B2BBB71A0ACB8829403866370B50D00');
         var c = new CoS('ARC14+4', 24);
-        var expected = 'b5ee17ad7b2bbb71a0acb800000000c038418070'
-        expect(c.transformKey(k).toHexPadded()).to.equal(expected);
+        var expected = 'b5ee17ad7b2bbb71a0acb800000000c038418070';
+        expect(c.transformKey(k).toHexPadded().toLowerCase()).to.equal(expected);
       });
 
     });
@@ -59,8 +59,8 @@ describe('CoS', function() {
       it('should return a key with the correct value', function() {
         var k = new Key('B5EE17AD7B2BBB71A0ACB8829403866370B50D00');
         var c = new CoS(2);
-        var expected = 'b5ee17ad7b2bbb71a0acb8829403866370b50d20'
-        expect(c.transformKey(k).toHexPadded()).to.equal(expected);
+        var expected = 'b5ee17ad7b2bbb71a0acb8829403866370b50d20';
+        expect(c.transformKey(k).toHexPadded().toLowerCase()).to.equal(expected);
       });
 
     });

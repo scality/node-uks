@@ -7,12 +7,12 @@ describe('createKeyArc(value, options)', function() {
     var arc = createKeyArc('ABC');
     var expected = '0000000000000000000abc00000000c02430c070';
     expect(arc).to.be.an.instanceof(Key);
-    expect(arc.toHexPadded()).to.equal(expected);
+    expect(arc.toHexPadded().toLowerCase()).to.equal(expected);
 
     arc = createKeyArc('0')
     expected = '000000000000000000000000000000c02430c070';
     expect(arc).to.be.an.instanceof(Key);
-    expect(arc.toHexPadded()).to.equal(expected);
+    expect(arc.toHexPadded().toLowerCase()).to.equal(expected);
 
     arc = createKeyArc('124', {
       version: 0,
@@ -23,7 +23,7 @@ describe('createKeyArc(value, options)', function() {
     });
     expected = '000000000000000000012400000000c00c306071';
     expect(arc).to.be.an.instanceof(Key);
-    expect(arc.toHexPadded()).to.equal(expected);
+    expect(arc.toHexPadded().toLowerCase()).to.equal(expected);
   });
 
   it('should throw an error for values less than 0', function() {
