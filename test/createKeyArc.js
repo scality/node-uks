@@ -5,12 +5,12 @@ var expect       = require('chai').expect,
 describe('createKeyArc(value, options)', function() {
   it('should return a key when appropriate values are passed', function() {
     var arc = createKeyArc('ABC');
-    var expected = '0000000000000000000abc00000000c02430c070';
+    var expected = '0000000000000000000abc00000000c02430c070'.toUpperCase();
     expect(arc).to.be.an.instanceof(Key);
     expect(arc.toHexPadded()).to.equal(expected);
 
     arc = createKeyArc('0')
-    expected = '000000000000000000000000000000c02430c070';
+    expected = '000000000000000000000000000000c02430c070'.toUpperCase();
     expect(arc).to.be.an.instanceof(Key);
     expect(arc.toHexPadded()).to.equal(expected);
 
@@ -21,7 +21,7 @@ describe('createKeyArc(value, options)', function() {
       schema: 6,
       replica: 1
     });
-    expected = '000000000000000000012400000000c00c306071';
+    expected = '000000000000000000012400000000c00c306071'.toUpperCase();
     expect(arc).to.be.an.instanceof(Key);
     expect(arc.toHexPadded()).to.equal(expected);
   });

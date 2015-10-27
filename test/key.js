@@ -61,7 +61,7 @@ describe('Key', function() {
 
     it('should properly position values when key is small', function() {
       var k1 = new key('ABC');
-      expected = '0000000000000000000000000000000000000abc';
+      expected = '0000000000000000000000000000000000000abc'.toUpperCase();
       expect(k1.toHexPadded()).to.equal(expected);
     });
 
@@ -123,7 +123,7 @@ describe('Key', function() {
 
     it('should be an appropriate value', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D21');
-      var expected = '0b436d02d08110c6f6020dd7e958dbb8c60a6222';
+      var expected = '0b436d02d08110c6f6020dd7e958dbb8c60a6222'.toUpperCase();
       expect(k.next.toHexPadded()).to.equal(expected);
     });
 
@@ -147,7 +147,7 @@ describe('Key', function() {
 
     it('should be an appropriate value', function() {
       var k = new key('B5EE17AD7B2BBB71A0ACB8829403866370B50D21');
-      var expected = '6098c25825d6661c4b57632d3eae310e1b5fb820';
+      var expected = '6098c25825d6661c4b57632d3eae310e1b5fb820'.toUpperCase();
       expect(k.prev.toHex()).to.equal(expected);
     });
 
@@ -269,12 +269,12 @@ describe('keyutils', function() {
       // expected results pulled from Python code
       var key = new Key("B5EE17AD7B2BBB71A0ACB8829403866370B50D12");
       var rep = keyutils.getNextReplica(key, 0);
-      var expected = "35ee17ad7b2bbb71a0acb8829403866370b50d11";
+      var expected = "35ee17ad7b2bbb71a0acb8829403866370b50d11".toUpperCase();
       expect(rep.toHexPadded()).to.equal(expected);
 
       key = new Key("C93AC3EC755EF83FAC62D900000000512430C070");
       rep = keyutils.getNextReplica(key, 0);
-      expected = "de901941cab44d9501b82e55555555a62430c071";
+      expected = "de901941cab44d9501b82e55555555a62430c071".toUpperCase();
       expect(rep.toHexPadded()).to.equal(expected);
     });
 
@@ -282,12 +282,12 @@ describe('keyutils', function() {
       // expected results pulled from Python code
       var key = new Key("B5EE17AD7B2BBB71A0ACB8829403866370B50D12");
       var rep = keyutils.getNextReplica(key, 0);
-      var expected = "35ee17ad7b2bbb71a0acb8829403866370b50d11";
+      var expected = "35ee17ad7b2bbb71a0acb8829403866370b50d11".toUpperCase();
       expect(rep.toHexPadded()).to.equal(expected);
 
       key = new Key("C93AC3EC755EF83FAC62D900000000512430C070");
       rep = keyutils.getNextReplica(key, 1);
-      expected = "de901941cab44d9501b82e55555555a62430c071";
+      expected = "de901941cab44d9501b82e55555555a62430c071".toUpperCase();
       expect(rep.toHexPadded()).to.equal(expected);
     });
   });
